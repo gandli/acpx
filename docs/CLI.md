@@ -134,7 +134,7 @@ acpx [global_options] claude exec [prompt_text...]
 acpx [global_options] claude sessions [list | new [--name <name>] | ensure [--name <name>] | close [name]]
 ```
 
-Built-in command mapping: `claude -> npx @zed-industries/claude-agent-acp`
+Built-in command mapping: `claude -> npx -y @zed-industries/claude-agent-acp`
 
 ### `gemini`
 

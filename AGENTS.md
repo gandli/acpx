@@ -67,7 +67,7 @@ Built-in friendly names map to commands:
 ```ts
 const AGENT_REGISTRY: Record<string, string> = {
   codex: "npx @zed-industries/codex-acp",
-  claude: "npx @zed-industries/claude-agent-acp",
+  claude: "npx -y @zed-industries/claude-agent-acp",
   gemini: "gemini",
 };
 ```
