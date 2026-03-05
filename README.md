@@ -130,6 +130,7 @@ The only prerequisite is the underlying coding agent you want to use:
 - `acpx kiro` -> Kiro CLI: https://kiro.dev
 - `acpx pi` -> Pi Coding Agent: https://github.com/mariozechner/pi
 - `acpx kilocode` -> Kilocode: https://kilocode.ai
+- `acpx qwen` -> Qwen Code: https://github.com/QwenLM/qwen-code
 
 ## Usage examples
 
@@ -275,6 +276,7 @@ Session-control JSON payloads (`sessions new|ensure`, `status`) may also include
 
 Built-ins:
 
+<<<<<<< HEAD
 | Agent      | Adapter                                                                | Wraps                                                                                                           |
 | ---------- | ---------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
 | `copilot`  | native                                                                 | [GitHub Copilot CLI](https://docs.github.com/copilot/how-tos/copilot-chat/use-copilot-chat-in-the-command-line) |
@@ -286,6 +288,16 @@ Built-ins:
 | `opencode` | native                                                                 | [OpenCode](https://opencode.ai)                                                                                 |
 | `pi`       | [pi-acp](https://github.com/svkozak/pi-acp)                            | [Pi Coding Agent](https://github.com/mariozechner/pi)                                                           |
 | `kilocode` | native                                                                 | [Kilocode](https://kilocode.ai)                                                                                 |
+=======
+| Agent      | Adapter                                                                | Wraps                                                 |
+| ---------- | ---------------------------------------------------------------------- | ----------------------------------------------------- |
+| `codex`    | [codex-acp](https://github.com/zed-industries/codex-acp)               | [Codex CLI](https://codex.openai.com)                 |
+| `claude`   | [claude-agent-acp](https://github.com/zed-industries/claude-agent-acp) | [Claude Code](https://claude.ai/code)                 |
+| `gemini`   | native                                                                 | [Gemini CLI](https://github.com/google/gemini-cli)    |
+| `opencode` | native                                                                 | [OpenCode](https://opencode.ai)                       |
+| `pi`       | [pi-acp](https://github.com/svkozak/pi-acp)                            | [Pi Coding Agent](https://github.com/mariozechner/pi) |
+| `qwen`     | native (`qwen --acp`)                                                  | [Qwen Code](https://github.com/QwenLM/qwen-code)       |
+>>>>>>> 4b60ced (feat: add qwen built-in ACP agent)
 
 Use `--agent` as an escape hatch for custom ACP servers:
 
