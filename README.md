@@ -172,6 +172,8 @@ acpx copilot 'summarize recent changes'     # built-in GitHub Copilot agent
 acpx claude 'refactor auth middleware' # built-in claude agent
 acpx gemini 'add startup logging'      # built-in gemini agent
 acpx openclaw exec 'summarize active session state' # built-in OpenClaw ACP bridge
+acpx qwen 'explain this module architecture' # built-in qwen code agent
+acpx qwen exec 'Reply exactly QWEN_ACP_OK'   # one-shot ACP smoke test
 
 acpx my-agent 'review this patch'                      # unknown name -> raw command
 acpx --agent './bin/dev-acp --profile ci' 'run checks' # --agent escape hatch
@@ -276,7 +278,6 @@ Session-control JSON payloads (`sessions new|ensure`, `status`) may also include
 
 Built-ins:
 
-<<<<<<< HEAD
 | Agent      | Adapter                                                                | Wraps                                                                                                           |
 | ---------- | ---------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
 | `copilot`  | native                                                                 | [GitHub Copilot CLI](https://docs.github.com/copilot/how-tos/copilot-chat/use-copilot-chat-in-the-command-line) |
@@ -288,16 +289,7 @@ Built-ins:
 | `opencode` | native                                                                 | [OpenCode](https://opencode.ai)                                                                                 |
 | `pi`       | [pi-acp](https://github.com/svkozak/pi-acp)                            | [Pi Coding Agent](https://github.com/mariozechner/pi)                                                           |
 | `kilocode` | native                                                                 | [Kilocode](https://kilocode.ai)                                                                                 |
-=======
-| Agent      | Adapter                                                                | Wraps                                                 |
-| ---------- | ---------------------------------------------------------------------- | ----------------------------------------------------- |
-| `codex`    | [codex-acp](https://github.com/zed-industries/codex-acp)               | [Codex CLI](https://codex.openai.com)                 |
-| `claude`   | [claude-agent-acp](https://github.com/zed-industries/claude-agent-acp) | [Claude Code](https://claude.ai/code)                 |
-| `gemini`   | native                                                                 | [Gemini CLI](https://github.com/google/gemini-cli)    |
-| `opencode` | native                                                                 | [OpenCode](https://opencode.ai)                       |
-| `pi`       | [pi-acp](https://github.com/svkozak/pi-acp)                            | [Pi Coding Agent](https://github.com/mariozechner/pi) |
-| `qwen`     | native (`qwen --acp`)                                                  | [Qwen Code](https://github.com/QwenLM/qwen-code)       |
->>>>>>> 4b60ced (feat: add qwen built-in ACP agent)
+| `qwen`     | native (`qwen --acp`)                                                  | [Qwen Code](https://github.com/QwenLM/qwen-code)                                                                 |
 
 Use `--agent` as an escape hatch for custom ACP servers:
 
