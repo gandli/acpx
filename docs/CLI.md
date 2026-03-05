@@ -42,7 +42,7 @@ acpx [global_options] <agent> sessions [list | new [--name <name>] | ensure [--n
 
 `<agent>` can be:
 
-- built-in friendly name: `codex`, `claude`, `gemini`, `openclaw`, `opencode`, `pi`
+- built-in friendly name: `codex`, `claude`, `gemini`, `kimi`, `openclaw`, `opencode`, `pi`
 - unknown token (treated as raw command)
 - overridden by `--agent <command>` escape hatch
 
@@ -169,6 +169,17 @@ For repo-local OpenClaw checkouts, override the built-in command in config:
   }
 }
 ```
+
+### `kimi`
+
+```bash
+acpx [global_options] kimi [prompt_options] [prompt_text...]
+acpx [global_options] kimi prompt [prompt_options] [prompt_text...]
+acpx [global_options] kimi exec [prompt_text...]
+acpx [global_options] kimi sessions [list | new [--name <name>] | ensure [--name <name>] | close [name]]
+```
+
+Built-in command mapping: `kimi -> kimi acp`
 
 ### Custom positional agents
 

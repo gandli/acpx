@@ -124,6 +124,7 @@ The only prerequisite is the underlying coding agent you want to use:
 - `acpx codex` -> Codex CLI: https://codex.openai.com
 - `acpx claude` -> Claude Code: https://claude.ai/code
 - `acpx gemini` -> Gemini CLI: https://github.com/google/gemini-cli
+- `acpx kimi` -> Kimi CLI: https://github.com/MoonshotAI/kimi-cli
 - `acpx openclaw` -> OpenClaw ACP bridge: https://github.com/openclaw/openclaw
 - `acpx opencode` -> OpenCode: https://opencode.ai
 - `acpx kiro` -> Kiro CLI: https://kiro.dev
@@ -280,6 +281,7 @@ Built-ins:
 | `codex`    | [codex-acp](https://github.com/zed-industries/codex-acp)               | [Codex CLI](https://codex.openai.com)                                                                           |
 | `claude`   | [claude-agent-acp](https://github.com/zed-industries/claude-agent-acp) | [Claude Code](https://claude.ai/code)                                                                           |
 | `gemini`   | native                                                                 | [Gemini CLI](https://github.com/google/gemini-cli)                                                              |
+| `kimi`     | native                                                                 | [Kimi CLI](https://github.com/MoonshotAI/kimi-cli)                                                              |
 | `openclaw` | native                                                                 | [OpenClaw ACP bridge](https://github.com/openclaw/openclaw)                                                     |
 | `opencode` | native                                                                 | [OpenCode](https://opencode.ai)                                                                                 |
 | `pi`       | [pi-acp](https://github.com/svkozak/pi-acp)                            | [Pi Coding Agent](https://github.com/mariozechner/pi)                                                           |

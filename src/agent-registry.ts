@@ -4,6 +4,7 @@ export const AGENT_REGISTRY: Record<string, string> = {
   claude: "npx -y @zed-industries/claude-agent-acp",
   gemini: "gemini --experimental-acp",
   openclaw: "openclaw acp",
+  kimi: "kimi acp",
   opencode: "npx -y opencode-ai acp",
   kiro: "kiro-cli acp",
   pi: "npx pi-acp",

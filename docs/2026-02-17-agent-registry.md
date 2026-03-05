@@ -14,6 +14,7 @@ date: 2026-02-17
 - `claude -> npx @zed-industries/claude-agent-acp`
 - `gemini -> gemini --experimental-acp`
 - `openclaw -> openclaw acp`
+- `kimi -> kimi acp`
 - `opencode -> npx opencode-ai`
 - `pi -> npx pi-acp`
 
@@ -47,7 +48,7 @@ Rules:
 
 ## Practical guidance
 
-Use built-ins for common adapters (`copilot`, `codex`, `claude`, `gemini`, `openclaw`, `opencode`, `pi`).
+Use built-ins for common adapters (`copilot`, `codex`, `claude`, `gemini`, `kimi`, `openclaw`, `opencode`, `pi`).
 Use `--agent` when you need:
 
 - local development adapters
