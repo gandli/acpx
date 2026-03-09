@@ -15,10 +15,11 @@ import {
   type NewSessionResponse,
   type PromptRequest,
   type PromptResponse,
+  type SessionId,
   type SetSessionConfigOptionRequest,
   type SetSessionConfigOptionResponse,
   type SetSessionModeRequest,
-  type SessionId,
+  type SetSessionModeResponse,
 } from "@agentclientprotocol/sdk";
 
 type ParsedCommand = {
@@ -486,22 +487,16 @@ class MockAgent implements Agent {
     this.sessions.get(params.sessionId)?.pendingPrompt?.abort();
   }
 
-  async setSessionMode(params: SetSessionModeRequest): Promise<void> {
-    const session = this.sessions.get(params.sessionId);
-    if (!session) {
-      throw new Error(`Unknown session: ${params.sessionId}`);
-    }
+  async setSessionMode(params: SetSessionModeRequest): Promise<SetSessionModeResponse> {
+    const session = this.ensureSession(params.sessionId);
     session.modeId = params.modeId;
+    return {};
   }
 
   async setSessionConfigOption(
     params: SetSessionConfigOptionRequest,
   ): Promise<SetSessionConfigOptionResponse> {
-    const session = this.sessions.get(params.sessionId);
-    if (!session) {
-      throw new Error(`Unknown session: ${params.sessionId}`);
-    }
-
+    const session = this.ensureSession(params.sessionId);
     if (params.configId === "mode") {
       session.modeId = params.value;
     } else {
@@ -524,6 +519,15 @@ class MockAgent implements Agent {
         },
       },
     });
+  }
+
+  private ensureSession(sessionId: SessionId): SessionState {
+    let session = this.sessions.get(sessionId);
+    if (!session) {
+      session = createSessionState(false);
+      this.sessions.set(sessionId, session);
+    }
+    return session;
   }
 
   private async handlePrompt(
