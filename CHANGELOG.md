@@ -31,6 +31,7 @@ Repo: https://github.com/openclaw/acpx
 - Improve runtime performance and queue coordination.
 - Add Dependabot configuration.
 - Pin ACP adapter package ranges.
+- Add support for images and non-text input.
 
 ### Breaking
 
