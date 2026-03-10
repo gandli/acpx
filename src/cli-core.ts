@@ -302,7 +302,9 @@ async function handleExec(
         })}\n`,
       );
     } else {
-      process.stderr.write("Error: exec subcommand is disabled by configuration (disableExec: true)\n");
+      process.stderr.write(
+        "Error: exec subcommand is disabled by configuration (disableExec: true)\n",
+      );
     }
     process.exitCode = EXIT_CODES.ERROR;
     return;
