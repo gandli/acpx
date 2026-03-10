@@ -18,6 +18,7 @@ export const AGENT_REGISTRY: Record<string, string> = {
   kiro: "kiro-cli acp",
   kilocode: "npx -y @kilocode/cli acp",
   qwen: "qwen --acp",
+  iflow: "iflow --experimental-acp",
 };
 
 export const DEFAULT_AGENT_NAME = "codex";

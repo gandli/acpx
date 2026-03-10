@@ -15,6 +15,7 @@ Built-in agents:
 - `kiro -> kiro-cli acp`
 - `kilocode -> npx -y @kilocode/cli acp`
 - `qwen -> qwen --acp`
+- `iflow -> iflow --experimental-acp`
 
 Harness-specific docs in this directory:
 

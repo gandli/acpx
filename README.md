@@ -294,6 +294,7 @@ Built-ins:
 | `kiro`     | native (`kiro-cli acp`)                                                | [Kiro CLI](https://kiro.dev)                                                                                    |
 | `kilocode` | `npx -y @kilocode/cli acp`                                             | [Kilocode](https://kilocode.ai)                                                                                 |
 | `qwen`     | native (`qwen --acp`)                                                  | [Qwen Code](https://github.com/QwenLM/qwen-code)                                                                |
+| `iflow`    | native (`iflow --experimental-acp`)                                    | [iFlow CLI](https://github.com/iflow-ai/iflow-cli)                                                              |
 
 Additional built-in agent docs live in [agents/README.md](agents/README.md).
 
