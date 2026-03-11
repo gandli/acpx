@@ -13,12 +13,12 @@ export const AGENT_REGISTRY: Record<string, string> = {
   cursor: "cursor-agent acp",
   copilot: "copilot --acp --stdio",
   droid: "droid exec --output-format acp",
-  kimi: "kimi acp",
-  opencode: "npx -y opencode-ai acp",
-  kiro: "kiro-cli acp",
-  kilocode: "npx -y @kilocode/cli acp",
-  qwen: "qwen --acp",
   iflow: "iflow --experimental-acp",
+  kilocode: "npx -y @kilocode/cli acp",
+  kimi: "kimi acp",
+  kiro: "kiro-cli acp",
+  opencode: "npx -y opencode-ai acp",
+  qwen: "qwen --acp",
 };
 
 export const DEFAULT_AGENT_NAME = "codex";
