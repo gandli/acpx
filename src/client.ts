@@ -1696,6 +1696,8 @@ export class AcpClient {
     const textDecoder = new TextDecoder();
     const textEncoder = new TextEncoder();
     let buffer = "";
+    let nonJsonLineCount = 0;
+    const maxNonJsonLines = 10;
 
     return new ReadableStream<Uint8Array>({
       async start(controller) {
@@ -1704,6 +1706,21 @@ export class AcpClient {
           while (true) {
             const { value, done } = await reader.read();
             if (done) {
+              // Flush any remaining buffered content at EOF
+              if (buffer.trim().length > 0) {
+                try {
+                  JSON.parse(buffer.trim());
+                  controller.enqueue(textEncoder.encode(buffer + "\n"));
+                } catch {
+                  nonJsonLineCount += 1;
+                  if (nonJsonLineCount > maxNonJsonLines) {
+                    throw new Error(
+                      `Agent stdout exceeded ${maxNonJsonLines} non-JSON lines without completing ACP handshake. ` +
+                        "This indicates the adapter does not support stdio ACP mode.",
+                    );
+                  }
+                }
+              }
               break;
             }
             if (!value) {
@@ -1726,9 +1743,17 @@ export class AcpClient {
                 // If it parses successfully, it's valid JSON - pass it through
                 const outputLine = trimmedLine + "\n";
                 controller.enqueue(textEncoder.encode(outputLine));
+                nonJsonLineCount = 0;
               } catch {
                 // If it fails to parse, it's likely a log message - skip it silently
                 // This prevents "[iFlow ACP Agent] ..." messages from causing parse errors
+                nonJsonLineCount += 1;
+                if (nonJsonLineCount > maxNonJsonLines) {
+                  throw new Error(
+                    `Agent stdout exceeded ${maxNonJsonLines} non-JSON lines without completing ACP handshake. ` +
+                      "This indicates the adapter does not support stdio ACP mode.",
+                  );
+                }
               }
             }
           }
