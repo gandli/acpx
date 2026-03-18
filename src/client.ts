@@ -967,7 +967,8 @@ export class AcpClient {
 
     const input = Writable.toWeb(child.stdin);
     const output = Readable.toWeb(child.stdout) as ReadableStream<Uint8Array>;
-    const stream = this.createTappedStream(ndJsonStream(input, output));
+    const filteredOutput = this.filterAcpOutputStream(output);
+    const stream = this.createTappedStream(ndJsonStream(input, filteredOutput));
 
     const connection = new ClientSideConnection(
       () => ({
@@ -1066,6 +1067,13 @@ export class AcpClient {
       return this.suppressReplaySessionUpdateMessages && isSessionUpdateNotification(message);
     };
 
+    const isValidAcpMessage = (value: AnyMessage): boolean => {
+      if (!value || typeof value !== "object") {
+        return false;
+      }
+      return "jsonrpc" in value || "method" in value || "id" in value || "result" in value || "error" in value;
+    };
+
     const readable = new ReadableStream<AnyMessage>({
       async start(controller) {
         const reader = base.readable.getReader();
@@ -1076,6 +1084,9 @@ export class AcpClient {
               break;
             }
             if (!value) {
+              continue;
+            }
+            if (!isValidAcpMessage(value)) {
               continue;
             }
             if (!shouldSuppressInboundReplaySessionUpdate(value)) {
@@ -1673,5 +1684,55 @@ export class AcpClient {
     }
 
     throw new Error(`Timed out waiting for session replay drain after ${normalizedTimeoutMs}ms`);
+  }
+
+  private filterAcpOutputStream(
+    output: ReadableStream<Uint8Array>,
+  ): ReadableStream<Uint8Array> {
+    const textDecoder = new TextDecoder();
+    const textEncoder = new TextEncoder();
+    let buffer = "";
+
+    return new ReadableStream<Uint8Array>({
+      async start(controller) {
+        const reader = output.getReader();
+        try {
+          while (true) {
+            const { value, done } = await reader.read();
+            if (done) {
+              break;
+            }
+            if (!value) {
+              continue;
+            }
+
+            buffer += textDecoder.decode(value, { stream: true });
+            const lines = buffer.split("\n");
+            buffer = lines.pop() || "";
+
+            for (const line of lines) {
+              const trimmedLine = line.trim();
+              if (!trimmedLine) {
+                continue;
+              }
+
+              // Try to parse as JSON to check if it's a valid ACP message
+              try {
+                const parsed = JSON.parse(trimmedLine);
+                // If it parses successfully, it's valid JSON - pass it through
+                const outputLine = trimmedLine + "\n";
+                controller.enqueue(textEncoder.encode(outputLine));
+              } catch {
+                // If it fails to parse, it's likely a log message - skip it silently
+                // This prevents "[iFlow ACP Agent] ..." messages from causing parse errors
+              }
+            }
+          }
+        } finally {
+          reader.releaseLock();
+          controller.close();
+        }
+      },
+    });
   }
 }
