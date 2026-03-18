@@ -1071,7 +1071,13 @@ export class AcpClient {
       if (!value || typeof value !== "object") {
         return false;
       }
-      return "jsonrpc" in value || "method" in value || "id" in value || "result" in value || "error" in value;
+      return (
+        "jsonrpc" in value ||
+        "method" in value ||
+        "id" in value ||
+        "result" in value ||
+        "error" in value
+      );
     };
 
     const readable = new ReadableStream<AnyMessage>({
@@ -1686,9 +1692,7 @@ export class AcpClient {
     throw new Error(`Timed out waiting for session replay drain after ${normalizedTimeoutMs}ms`);
   }
 
-  private filterAcpOutputStream(
-    output: ReadableStream<Uint8Array>,
-  ): ReadableStream<Uint8Array> {
+  private filterAcpOutputStream(output: ReadableStream<Uint8Array>): ReadableStream<Uint8Array> {
     const textDecoder = new TextDecoder();
     const textEncoder = new TextEncoder();
     let buffer = "";
@@ -1718,7 +1722,7 @@ export class AcpClient {
 
               // Try to parse as JSON to check if it's a valid ACP message
               try {
-                const parsed = JSON.parse(trimmedLine);
+                JSON.parse(trimmedLine);
                 // If it parses successfully, it's valid JSON - pass it through
                 const outputLine = trimmedLine + "\n";
                 controller.enqueue(textEncoder.encode(outputLine));
